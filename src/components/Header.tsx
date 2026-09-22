@@ -26,7 +26,7 @@ export default function Header() {
               to={l.to}
               className={({ isActive }) =>
                 `rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive ? 'bg-white/[0.07] text-white' : 'text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100'
+                  isActive ? 'bg-brand-400/10 text-brand-300' : 'text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100'
                 }`
               }
             >

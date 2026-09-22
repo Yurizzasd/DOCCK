@@ -25,6 +25,13 @@ body {
 
 .font-display { font-family: 'Space Grotesk', Inter, system-ui, sans-serif; }
 
+.text-amber-gradient {
+  background: linear-gradient(180deg, #ffd666 0%, #ffbe1a 55%, #f04b1d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .card-lift { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
 .card-lift:hover { transform: translateY(-3px); }
 

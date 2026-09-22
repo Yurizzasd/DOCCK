@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import SectionHeading from '../components/SectionHeading';
 import ContentCard from '../components/ContentCard';
 import CategoryGrid from '../components/CategoryGrid';
+import CtaBand from '../components/CtaBand';
 import AdSlot from '../components/AdSlot';
 import Pagination from '../components/Pagination';
 import { GridSkeleton } from '../components/Skeletons';
@@ -64,6 +65,7 @@ export default function Home() {
         <section className="pt-10" aria-label="Categorias">
           <SectionHeading kicker="Explorar" title="Categorias" hint="Atalhos visuais para cada tipo de conteúdo." />
           <CategoryGrid />
+          <CtaBand />
         </section>
 
         <section className="pt-10" aria-label="Mais recentes">
