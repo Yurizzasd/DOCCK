@@ -1,14 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { ensureAdCash } from '../ads/adcash';
 
 // Slot de anúncio desacoplado por provedor.
-// Como funciona:
-//   1. No painel do provedor (AdCash hoje, AdSense no futuro) você cria a unidade
-//      de anúncio e copia a TAG (o trecho <script> que eles fornecem).
-//   2. Cola a URL do script em VITE_ADS_SCRIPT e o zone/slot id em VITE_ADS_ZONE
-//      (variáveis de ambiente — na Cloudflare, em Settings → Environment variables).
-//   3. Define VITE_ADS_PROVIDER=adcash (ou adsense) e faz rebuild.
-// Sem configuração, renderiza um placeholder neutro que preserva o layout.
-// Os slots ficam longe do botão de download de propósito.
+// AdCash (atual): basta definir VITE_ADS_PROVIDER=adcash + VITE_ADS_ZONE=<zoneId>
+// e o AutoTag preenche os slots sozinho. Nada de IDs no código.
+// AdSense (futuro): trocar o provider e implementar a tag <ins> neste arquivo.
+// Slots ficam longe do botão de download de propósito.
 
 interface AdSlotProps {
   slot: string;
@@ -17,26 +14,13 @@ interface AdSlotProps {
 }
 
 export default function AdSlot({ slot, label = 'Espaço publicitário', format = 'banner' }: AdSlotProps) {
-  const ref = useRef<HTMLDivElement>(null);
   const provider = import.meta.env.VITE_ADS_PROVIDER as string | undefined;
-  const scriptSrc = import.meta.env.VITE_ADS_SCRIPT as string | undefined;
   const zone = import.meta.env.VITE_ADS_ZONE as string | undefined;
-  const enabled = (provider === 'adcash' || provider === 'adsense') && !!scriptSrc;
+  const enabled = provider === 'adcash' && !!zone;
 
   useEffect(() => {
-    if (!enabled || !ref.current) return;
-    const container = ref.current;
-    container.innerHTML = '';
-    const s = document.createElement('script');
-    s.async = true;
-    s.src = scriptSrc as string;
-    if (zone) s.setAttribute('data-zone', zone);
-    s.setAttribute('data-slot', slot);
-    container.appendChild(s);
-    return () => {
-      container.innerHTML = '';
-    };
-  }, [enabled, scriptSrc, zone, slot]);
+    if (enabled && zone) ensureAdCash(zone);
+  }, [enabled, zone]);
 
   if (!enabled) {
     return (
@@ -51,5 +35,5 @@ export default function AdSlot({ slot, label = 'Espaço publicitário', format =
     );
   }
 
-  return <div ref={ref} data-ad-slot={slot} data-ad-format={format} className="min-h-[90px]" />;
+  return <div data-ad-slot={slot} data-ad-format={format} className="min-h-[90px]" />;
 }
