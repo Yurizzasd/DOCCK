@@ -99,7 +99,7 @@ export default function Detail() {
   const paragraphs = data.content ? data.content.split(/\n{2,}|\r\n\r\n/).slice(0, 6) : [];
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8">
+    <main className="mx-auto max-w-6xl px-4 py-8 pb-24 md:pb-8">
       <nav className="mb-4 text-[13px] text-zinc-500" aria-label="Trilha">
         <Link to="/" className="hover:text-zinc-200">Início</Link>
         <span className="mx-2">/</span>
@@ -200,6 +200,17 @@ export default function Detail() {
           <FileList files={data.list} />
           <AdSlot slot="detail-side" />
         </aside>
+      </div>
+
+      {/* barra de download fixa no mobile */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-brand-400/25 bg-ink-950/95 p-3 backdrop-blur md:hidden">
+        <button
+          onClick={primaryDownload}
+          disabled={downloading}
+          className="h-12 w-full rounded-xl bg-brand-400 text-[15px] font-bold text-black shadow-glow transition active:scale-[0.99] disabled:opacity-60"
+        >
+          {downloading ? 'Gerando download…' : '⬇ DOWNLOAD'}
+        </button>
       </div>
     </main>
   );

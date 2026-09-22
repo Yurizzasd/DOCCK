@@ -9,7 +9,7 @@ export default function Categories() {
   }, []);
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      <SectionHeading kicker="Navegar" title="Categorias" hint="Cada categoria aplica um filtro de busca otimizado." />
+      <SectionHeading title="Categorias" hint="Cada categoria aplica um filtro de busca otimizado." />
       <CategoryGrid />
     </main>
   );

@@ -47,7 +47,7 @@ export default function Home() {
       <HowItWorks />
       <main className="mx-auto max-w-6xl px-4">
         <section className="pt-10" aria-label="Destaques">
-          <SectionHeading kicker="Curadoria" title="Destaques" hint="Seleção dos conteúdos mais recentes do catálogo." linkTo="/addons" />
+          <SectionHeading num="01" title="Destaques" hint="Seleção dos conteúdos mais recentes do catálogo." linkTo="/addons" />
           {status === 'loading' && <GridSkeleton count={4} />}
           {status === 'error' && <ErrorState onRetry={() => setPage((p) => p)} />}
           {status === 'ok' && !featured.length && <Empty title="Nenhum addon encontrado." hint="Tente novamente em alguns instantes." />}
@@ -65,13 +65,15 @@ export default function Home() {
         </div>
 
         <section className="pt-10" aria-label="Categorias">
-          <SectionHeading kicker="Explorar" title="Categorias" hint="Atalhos visuais para cada tipo de conteúdo." />
+          <SectionHeading num="02" title="Categorias" hint="Atalhos visuais para cada tipo de conteúdo." />
           <CategoryGrid />
           <CtaBand />
         </section>
 
+        <div className="stripes mt-12 h-1.5 rounded-full opacity-30" aria-hidden="true" />
+
         <section className="pt-10" aria-label="Mais recentes">
-          <SectionHeading kicker="Atualizado" title="Mais recentes" hint="Direto da fonte, com paginação progressiva." />
+          <SectionHeading num="03" title="Mais recentes" hint="Direto da fonte, com paginação progressiva." />
           {status === 'loading' && <GridSkeleton count={8} />}
           {status === 'ok' && (
             <>

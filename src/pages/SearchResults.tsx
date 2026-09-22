@@ -40,7 +40,6 @@ export default function SearchResults() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
       <SectionHeading
-        kicker="Busca"
         title={q ? `Resultados para “${q}”` : 'Buscar'}
         hint="Consulta em tempo real à fonte, com debounce e cache curto."
       />

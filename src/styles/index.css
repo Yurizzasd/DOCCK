@@ -32,6 +32,15 @@ body {
   color: transparent;
 }
 
+/* cantos cortados — moldura gamer/industrial do DOCK */
+.clip-corner { clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); }
+.clip-corner-sm { clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px); }
+
+/* divisória listrada âmbar/preto */
+.stripes {
+  background: repeating-linear-gradient(-45deg, rgba(255,190,26,.28) 0 10px, transparent 10px 20px);
+}
+
 .card-lift { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
 .card-lift:hover { transform: translateY(-3px); }
 

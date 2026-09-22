@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import Logo from './Logo';
 
 export default function Footer() {
   return (
     <footer className="mt-16 border-t border-white/[0.07] bg-ink-900">
+      <div className="stripes h-1.5 opacity-30" aria-hidden="true" />
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <Logo />
+          <img src="/logo.png" alt="DOCK" className="h-16 w-auto rounded-xl" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-zinc-500">
             Catálogo independente de addons, mapas, texturas e scripts para Minecraft Bedrock.
             Os arquivos pertencem aos seus autores e são baixados da fonte original.

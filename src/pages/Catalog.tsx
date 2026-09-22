@@ -98,7 +98,7 @@ export default function Catalog() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      <SectionHeading kicker="Catálogo" title={title} hint="Escolha uma categoria ou busque por um termo." />
+      <SectionHeading title={title} hint="Escolha uma categoria ou busque por um termo." />
 
       {/* Abas de categoria — filtro individual real */}
       <div className="mb-4 flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Categorias">
