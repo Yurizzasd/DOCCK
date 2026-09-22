@@ -35,5 +35,5 @@ export default function AdSlot({ slot, label = 'Espaço publicitário', format =
     );
   }
 
-  return <div data-ad-slot={slot} data-ad-format={format} className="min-h-[90px]" />;
+  return <div data-ad-slot={slot} data-ad-format={format} aria-hidden="true" />;
 }

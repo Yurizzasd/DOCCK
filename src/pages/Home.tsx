@@ -11,6 +11,7 @@ import { GridSkeleton } from '../components/Skeletons';
 import { Empty, ErrorState } from '../components/States';
 import { api } from '../services/api';
 import type { LatestResult } from '../types/mcpedl';
+import { isInstallerPost } from '../utils/format';
 import { setPageMeta } from '../utils/seo';
 
 export default function Home() {
@@ -38,8 +39,10 @@ export default function Home() {
     };
   }, [page]);
 
-  const featured = data?.list.slice(0, 4) ?? [];
-  const recent = data?.list.slice(4) ?? [];
+  const catalogItems = (data?.list ?? []).filter((i) => !isInstallerPost(i.name));
+  const showcase = catalogItems.length ? catalogItems : (data?.list ?? []);
+  const featured = showcase.slice(0, 4);
+  const recent = showcase.slice(4);
 
   return (
     <div>

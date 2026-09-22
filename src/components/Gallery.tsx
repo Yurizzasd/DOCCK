@@ -15,7 +15,7 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
             className="group overflow-hidden rounded-xl border border-white/[0.08] bg-ink-800"
             aria-label={`Ampliar imagem ${i + 1}`}
           >
-            <img src={g.img} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.03]" />
+            <img src={g.img} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.display = 'none'; }} className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.03]" />
           </button>
         ))}
       </div>

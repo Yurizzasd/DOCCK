@@ -17,6 +17,7 @@ export default function Detail() {
   const [status, setStatus] = useState<'loading' | 'ok' | 'error' | 'notfound'>('loading');
   const [downloading, setDownloading] = useState(false);
   const [dlError, setDlError] = useState<string | null>(null);
+  const [imgFailed, setImgFailed] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -109,9 +110,9 @@ export default function Detail() {
       </nav>
 
       <div className="overflow-hidden rounded-xl2 border border-white/[0.08] bg-ink-850">
-        {data.img && (
+        {data.img && !imgFailed && (
           <div className="relative aspect-[21/9] overflow-hidden bg-ink-700">
-            <img src={data.img} alt={data.title} className="h-full w-full object-cover" />
+            <img src={data.img} alt={data.title} onError={() => setImgFailed(true)} className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-ink-850 via-transparent to-transparent" />
           </div>
         )}
