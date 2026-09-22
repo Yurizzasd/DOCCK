@@ -1,38 +1,33 @@
 import { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from './Logo';
-
-const LINKS = [
-  { to: '/', label: 'Início' },
-  { to: '/addons', label: 'Addons' },
-  { to: '/addons?cat=texturas', label: 'Texturas' },
-  { to: '/addons?cat=mapas', label: 'Mapas' },
-  { to: '/categorias', label: 'Categorias' }
-];
+import { CATEGORIES, categoryPath } from '../utils/categories';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const nav = useNavigate();
+  const loc = useLocation();
+  const params = new URLSearchParams(loc.search);
+  const activeCat = loc.pathname === '/addons' ? params.get('cat') : null;
+
+  const linkCls = (active: boolean) =>
+    `rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+      active ? 'bg-brand-400/10 text-brand-300' : 'text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100'
+    }`;
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-ink-950/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4">
         <Logo />
         <nav className="ml-4 hidden items-center gap-1 lg:flex" aria-label="Principal">
-          {LINKS.map((l) => (
-            <NavLink
-              key={l.label + l.to}
-              to={l.to}
-              className={({ isActive }) =>
-                `rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive ? 'bg-brand-400/10 text-brand-300' : 'text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100'
-                }`
-              }
-            >
-              {l.label}
-            </NavLink>
+          <Link to="/" className={linkCls(loc.pathname === '/')}>Início</Link>
+          {CATEGORIES.slice(0, 4).map((c) => (
+            <Link key={c.key} to={categoryPath(c.key)} className={linkCls(activeCat === c.key || (c.key === 'addons' && loc.pathname === '/addons' && !activeCat))}>
+              {c.label}
+            </Link>
           ))}
+          <Link to="/categorias" className={linkCls(loc.pathname === '/categorias')}>Categorias</Link>
         </nav>
         <form
           className="ml-auto hidden min-w-0 flex-1 max-w-xs items-center md:flex"
@@ -91,17 +86,11 @@ export default function Header() {
             />
             <button className="h-10 rounded-lg bg-brand-400 px-4 text-sm font-semibold text-black">Ir</button>
           </form>
-          {LINKS.map((l) => (
-            <NavLink
-              key={l.label + l.to}
-              to={l.to}
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                `block rounded-lg px-3 py-2.5 text-[15px] ${isActive ? 'bg-white/[0.07] text-white' : 'text-zinc-300'}`
-              }
-            >
-              {l.label}
-            </NavLink>
+          <Link to="/" onClick={() => setOpen(false)} className={`${linkCls(loc.pathname === '/')} block px-3 py-2.5 text-[15px]`}>Início</Link>
+          {CATEGORIES.map((c) => (
+            <Link key={c.key} to={categoryPath(c.key)} onClick={() => setOpen(false)} className={`${linkCls(activeCat === c.key)} block px-3 py-2.5 text-[15px]`}>
+              {c.label}
+            </Link>
           ))}
         </div>
       )}

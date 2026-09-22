@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-const QUICK = [
-  { label: 'Addons', to: '/addons' },
-  { label: 'Texturas', to: '/addons?cat=texturas&q=texture' },
-  { label: 'Mapas', to: '/addons?cat=mapas&q=map' },
-  { label: 'Scripts', to: '/addons?cat=scripts&q=script' }
-];
+import { CATEGORIES, categoryPath } from '../utils/categories';
 
 export default function Hero() {
   const [q, setQ] = useState('');
@@ -54,10 +48,10 @@ export default function Hero() {
         </form>
 
         <div className="mt-6 flex flex-wrap gap-2">
-          {QUICK.map((c) => (
+          {CATEGORIES.slice(0, 4).map((c) => (
             <Link
-              key={c.label}
-              to={c.to}
+              key={c.key}
+              to={categoryPath(c.key)}
               className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-300 transition hover:border-brand-400/60 hover:text-white"
             >
               {c.label}
