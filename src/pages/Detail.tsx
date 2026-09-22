@@ -179,12 +179,22 @@ export default function Detail() {
           <div className="rounded-xl2 border border-white/[0.08] bg-ink-850 p-5">
             <h2 className="font-display mb-3 text-[15px] font-bold text-white">Informações</h2>
             <dl className="space-y-2.5 text-sm">
-              {Object.entries(data.info || {}).slice(0, 10).map(([k, v]) => (
-                <div key={k} className="flex justify-between gap-3 border-b border-white/[0.05] pb-2 last:border-0">
-                  <dt className="capitalize text-zinc-500">{k.replace(/_/g, ' ')}</dt>
-                  <dd className="text-right text-zinc-200">{truncate(String(v ?? '—'), 60)}</dd>
-                </div>
-              ))}
+              {(() => {
+                const priority = ['category', 'author', 'postdate', 'post_date', 'version', 'game_version', 'downloads'];
+                const entries = Object.entries(data.info || {});
+                const norm = (k: string) => k.toLowerCase().replace(/\s+/g, '_');
+                const sorted = [...entries].sort((a, b) => {
+                  const ia = priority.indexOf(norm(a[0]));
+                  const ib = priority.indexOf(norm(b[0]));
+                  return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+                });
+                return sorted.slice(0, 6).map(([k, v]) => (
+                  <div key={k} className="flex justify-between gap-3 border-b border-white/[0.05] pb-2 last:border-0">
+                    <dt className="capitalize text-zinc-500">{k.replace(/_/g, ' ')}</dt>
+                    <dd className="text-right text-zinc-200">{truncate(String(v ?? '—'), 40)}</dd>
+                  </div>
+                ));
+              })()}
             </dl>
           </div>
           <FileList files={data.list} />

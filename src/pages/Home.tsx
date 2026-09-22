@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Hero from '../components/Hero';
+import HowItWorks from '../components/HowItWorks';
 import SectionHeading from '../components/SectionHeading';
 import ContentCard from '../components/ContentCard';
 import CategoryGrid from '../components/CategoryGrid';
@@ -43,6 +44,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
+      <HowItWorks />
       <main className="mx-auto max-w-6xl px-4">
         <section className="pt-10" aria-label="Destaques">
           <SectionHeading kicker="Curadoria" title="Destaques" hint="Seleção dos conteúdos mais recentes do catálogo." linkTo="/addons" />
