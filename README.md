@@ -87,8 +87,27 @@ Se preferir um backend tradicional, rode `server/index.mjs` (ou adapte p/ Expres
 ## Anúncios (`<AdSlot />`)
 
 - Componente: `src/components/AdSlot.tsx` — ponto único de troca AdCash ↔ AdSense.
-- Placeholders neutros enquanto `VITE_ADS_ENABLED=false`; nunca cobrem o botão de download.
-- Para ativar: implemente a injeção do script do provedor dentro de `AdSlot` e defina `VITE_ADS_ENABLED=true`.
+- Placeholders neutros enquanto `VITE_ADS_PROVIDER` estiver vazio; nunca cobrem o botão de download.
+- Slots existentes: `home-banner`, `catalog-infeed`, `detail-top`, `detail-side`.
+
+### Ativando o AdCash
+
+1. No painel do **AdCash**, cadastre o site `docck.pages.dev` e crie uma unidade **Banner**
+   (formatos sugeridos: 728×90 no topo, 300×250 na lateral — evite popunder, que
+   prejudica a experiência e o SEO).
+2. Copie a **tag** fornecida (o trecho `<script …>` da unidade).
+3. Na Cloudflare Pages, abra o projeto → **Settings → Environment variables** e defina:
+   - `VITE_ADS_PROVIDER` = `adcash`
+   - `VITE_ADS_SCRIPT` = URL do script da tag copiada
+   - `VITE_ADS_ZONE` = zone/slot id da unidade (se a tag usar um)
+4. Salve e faça **Retry deployment** (variáveis `VITE_*` entram no build, então é
+   preciso rebuildar).
+
+### Migrando para o AdSense no futuro
+
+Troque `VITE_ADS_PROVIDER` para `adsense`, atualize `VITE_ADS_SCRIPT`/`VITE_ADS_ZONE`
+com os dados do AdSense e adapte a injeção em `src/components/AdSlot.tsx`
+(AdSense usa `<ins class="adsbygoogle">` + `push`). Nenhuma página precisa mudar.
 
 ## SEO
 
