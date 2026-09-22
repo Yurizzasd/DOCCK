@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  @apply bg-ink-950 text-zinc-200 font-sans antialiased;
+  background-image:
+    radial-gradient(900px 320px at 15% -40px, rgba(255,190,26,.09), transparent 60%),
+    radial-gradient(700px 300px at 90% 0px, rgba(210,31,38,.08), transparent 60%);
+  background-attachment: fixed;
+}
+
+::selection { background: rgba(255,190,26,.85); color: #111; }
+
+/* thin scrollbars */
+* { scrollbar-width: thin; scrollbar-color: #2a2a32 transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: #2a2a32; border-radius: 8px; }
+
+.font-display { font-family: 'Space Grotesk', Inter, system-ui, sans-serif; }
+
+.card-lift { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.card-lift:hover { transform: translateY(-3px); }
+
+.reveal { animation: rise .5s ease both; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.skeleton { position: relative; overflow: hidden; background: #16161c; }
+.skeleton::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.06) 50%, transparent 80%);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { from { transform: translateX(-100%);} to { transform: translateX(100%);} }
+
+.diagonal-band { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), 0 100%); }
+
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+.prose-dock p { @apply text-zinc-300 leading-relaxed mb-3 text-[15px]; }
